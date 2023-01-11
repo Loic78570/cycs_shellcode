@@ -20,14 +20,18 @@ int main(int argc,  char *argv[]){
     char *shellcode = argv[1];
 
     size_t shellcode_len = strlen(shellcode);
-    printf("Longueur shellcode : %d octets\n", (int)strlen(shellcode));
+    printf("Longueur shellcode : %ld octets\n", shellcode_len);
 
 //    unsigned char code = argv[1];
 //    unsigned char code[] = testvar;
 
+    // exécution
     int (*ret)() = (int(*)())shellcode;
 
     ret();
+
+//    (*(void (*)())shellcode)();
+
 //
 //    const char *argvx = ["/bin/sh", "lol"];
 //
