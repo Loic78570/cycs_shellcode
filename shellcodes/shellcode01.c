@@ -1,3 +1,5 @@
-//
-// Created by cytech on 11/01/23.
-//
+#include <unistd.h>
+
+int main(){
+        execve("/bin/sh", NULL, NULL);
+}
