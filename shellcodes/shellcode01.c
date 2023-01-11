@@ -1,5 +1,5 @@
 #include <unistd.h>
 
-int main(){
-        execve("/bin/sh", NULL, NULL);
+int main(int argc, char *argv[]){
+        execve("/bin/sh", argv, NULL);
 }
