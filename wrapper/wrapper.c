@@ -9,7 +9,7 @@ unsigned char code[] =
 
 int main(int argc,  char *argv[]){
 
-    printf("Longueur shellcode %d\n", (int)strlen(code));
+    printf("Longueur shellcode : %d octets\n", (int)strlen(code));
 
 //    unsigned char code = argv[1];
 //    unsigned char code[] = testvar;
