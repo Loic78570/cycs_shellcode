@@ -11,12 +11,21 @@ unsigned char code[] =
 
 int main(int argc,  char *argv[]){
 
-    printf("Longueur shellcode : %d octets\n", (int)strlen(code));
+    if (argc<2)
+    {
+        printf("usage ./wrapper {shellcode}");
+        return 1;
+    }
+
+    char *shellcode = argv[1];
+
+    size_t shellcode_len = strlen(shellcode);
+    printf("Longueur shellcode : %d octets\n", (int)strlen(shellcode));
 
 //    unsigned char code = argv[1];
 //    unsigned char code[] = testvar;
 
-    int (*ret)() = (int(*)())code;
+    int (*ret)() = (int(*)())shellcode;
 
     ret();
 //
