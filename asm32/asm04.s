@@ -1,85 +1,74 @@
-	.file	"test.c"
-	.intel_syntax noprefix
-	.text
-	.section	.rodata
-.LC0:
-	.string	"Entrez un entier: "
-.LC1:
-	.string	"%d"
-	.text
-	.globl	main
-	.type	main, @function
-main:
-.LFB0:
-	.cfi_startproc
-	lea	ecx, 4[esp]
-	.cfi_def_cfa 1, 0
-	and	esp, -16
-	push	DWORD PTR -4[ecx]
-	push	ebp
-	mov	ebp, esp
-	.cfi_escape 0x10,0x5,0x2,0x75,0
-	push	ebx
-	push	ecx
-	.cfi_escape 0xf,0x3,0x75,0x78,0x6
-	.cfi_escape 0x10,0x3,0x2,0x75,0x7c
-	sub	esp, 16
-	call	__x86.get_pc_thunk.bx
-	add	ebx, OFFSET FLAT:_GLOBAL_OFFSET_TABLE_
-	mov	eax, DWORD PTR gs:20
-	mov	DWORD PTR -12[ebp], eax
-	xor	eax, eax
-	sub	esp, 12
-	lea	eax, .LC0@GOTOFF[ebx]
-	push	eax
-	call	printf@PLT
-	add	esp, 16
-	sub	esp, 8
-	lea	eax, -16[ebp]
-	push	eax
-	lea	eax, .LC1@GOTOFF[ebx]
-	push	eax
-	call	__isoc99_scanf@PLT
-	add	esp, 16
-	mov	eax, DWORD PTR -16[ebp]
-	and	eax, 1
-	test	eax, eax
-	jne	.L2
-	mov	eax, 0
-	jmp	.L4
-.L2:
-	mov	eax, 1
-.L4:
-	mov	edx, DWORD PTR -12[ebp]
-	sub	edx, DWORD PTR gs:20
-	je	.L5
-	call	__stack_chk_fail_local
-.L5:
-	lea	esp, -8[ebp]
-	pop	ecx
-	.cfi_restore 1
-	.cfi_def_cfa 1, 0
-	pop	ebx
-	.cfi_restore 3
-	pop	ebp
-	.cfi_restore 5
-	lea	esp, -4[ecx]
-	.cfi_def_cfa 4, 4
-	ret
-	.cfi_endproc
-.LFE0:
-	.size	main, .-main
-	.section	.text.__x86.get_pc_thunk.bx,"axG",@progbits,__x86.get_pc_thunk.bx,comdat
-	.globl	__x86.get_pc_thunk.bx
-	.hidden	__x86.get_pc_thunk.bx
-	.type	__x86.get_pc_thunk.bx, @function
-__x86.get_pc_thunk.bx:
-.LFB1:
-	.cfi_startproc
-	mov	ebx, DWORD PTR [esp]
-	ret
-	.cfi_endproc
-.LFE1:
-	.hidden	__stack_chk_fail_local
-	.ident	"GCC: (Ubuntu 11.3.0-1ubuntu1~22.04) 11.3.0"
-	.section	.note.GNU-stack,"",@progbits
+; Disassembly of file: main.o
+; Thu Jan 12 18:39:02 2023
+; Type: ELF64
+; Syntax: NASM
+; Instruction set: 8086, x64
+
+global main
+
+extern __stack_chk_fail                                 ; near
+extern __isoc99_scanf                                   ; near
+extern __printf_chk                                     ; near
+
+
+SECTION .text                        ; section number 1, code
+
+
+SECTION .data                    ; section number 2, data
+
+
+SECTION .bss                ; section number 3, bss
+
+
+SECTION .rodata.str1.1                 ; section number 4, const
+
+LC0:                                                   ; byte
+        db 45H, 6EH, 74H, 72H, 65H, 7AH, 20H, 75H       ; 0000 _ Entrez u
+        db 6EH, 20H, 65H, 6EH, 74H, 69H, 65H, 72H       ; 0008 _ n entier
+        db 3AH, 20H, 00H                                ; 0010 _ : .
+
+LC1:                                                   ; byte
+        db 25H, 64H, 00H                                ; 0013 _ %d.
+
+
+SECTION .text.startup                  ; section number 5, code
+
+main:   ; Function begin
+        endbr64                                         ; 0000 _ F3: 0F 1E. FA
+        sub     rsp, 24                                 ; 0004 _ 48: 83. EC, 18
+        lea     rsi, [rel LC0]                         ; 0008 _ 48: 8D. 35, 00000000(rel)
+        mov     edi, 1                                  ; 000F _ BF, 00000001
+; Note: Address is not rip-relative
+; Note: Absolute memory address without relocation
+        mov     rax, qword [fs:abs 28H]                 ; 0014 _ 64 48: 8B. 04 25, 00000028
+        mov     qword [rsp+8H], rax                     ; 001D _ 48: 89. 44 24, 08
+        xor     eax, eax                                ; 0022 _ 31. C0
+        call    __printf_chk                            ; 0024 _ E8, 00000000(PLT r)
+        lea     rsi, [rsp+4H]                           ; 0029 _ 48: 8D. 74 24, 04
+        lea     rdi, [rel LC1]                         ; 002E _ 48: 8D. 3D, 00000000(rel)
+        xor     eax, eax                                ; 0035 _ 31. C0
+        call    __isoc99_scanf                          ; 0037 _ E8, 00000000(PLT r)
+        mov     eax, dword [rsp+4H]                     ; 003C _ 8B. 44 24, 04
+        and     eax, 01H                                ; 0040 _ 83. E0, 01
+        mov     rdx, qword [rsp+8H]                     ; 0043 _ 48: 8B. 54 24, 08
+; Note: Address is not rip-relative
+; Note: Absolute memory address without relocation
+        sub     rdx, qword [fs:abs 28H]                 ; 0048 _ 64 48: 2B. 14 25, 00000028
+        jnz     ?_001                                   ; 0051 _ 75, 05
+        add     rsp, 24                                 ; 0053 _ 48: 83. C4, 18
+        ret                                             ; 0057 _ C3
+; main End of function
+
+?_001:  ; Local function
+; Note: Function does not end with ret or jmp
+        call    __stack_chk_fail                        ; 0058 _ E8, 00000000(PLT r)
+
+
+SECTION .note.gnu.property            ; section number 6, const
+
+        db 04H, 00H, 00H, 00H, 10H, 00H, 00H, 00H       ; 0000 _ ........
+        db 05H, 00H, 00H, 00H, 47H, 4EH, 55H, 00H       ; 0008 _ ....GNU.
+        db 02H, 00H, 00H, 0C0H, 04H, 00H, 00H, 00H      ; 0010 _ ........
+        db 03H, 00H, 00H, 00H, 00H, 00H, 00H, 00H       ; 0018 _ ........
+
+

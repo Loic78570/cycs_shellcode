@@ -1,72 +1,74 @@
-	.file	"test.c"
-	.intel_syntax noprefix
-	.text
-	.section	.rodata
-.LC0:
-	.string	"Entrez un entier: "
-.LC1:
-	.string	"%d"
-	.text
-	.globl	main
-	.type	main, @function
-main:
-.LFB0:
-	.cfi_startproc
-	endbr64
-	push	rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	mov	rbp, rsp
-	.cfi_def_cfa_register 6
-	sub	rsp, 16
-	mov	rax, QWORD PTR fs:40
-	mov	QWORD PTR -8[rbp], rax
-	xor	eax, eax
-	lea	rax, .LC0[rip]
-	mov	rdi, rax
-	mov	eax, 0
-	call	printf@PLT
-	lea	rax, -12[rbp]
-	mov	rsi, rax
-	lea	rax, .LC1[rip]
-	mov	rdi, rax
-	mov	eax, 0
-	call	__isoc99_scanf@PLT
-	mov	eax, DWORD PTR -12[rbp]
-	and	eax, 1
-	test	eax, eax
-	jne	.L2
-	mov	eax, 0
-	jmp	.L4
-.L2:
-	mov	eax, 1
-.L4:
-	mov	rdx, QWORD PTR -8[rbp]
-	sub	rdx, QWORD PTR fs:40
-	je	.L5
-	call	__stack_chk_fail@PLT
-.L5:
-	leave
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE0:
-	.size	main, .-main
-	.ident	"GCC: (Ubuntu 11.3.0-1ubuntu1~22.04) 11.3.0"
-	.section	.note.GNU-stack,"",@progbits
-	.section	.note.gnu.property,"a"
-	.align 8
-	.long	1f - 0f
-	.long	4f - 1f
-	.long	5
-0:
-	.string	"GNU"
-1:
-	.align 8
-	.long	0xc0000002
-	.long	3f - 2f
-2:
-	.long	0x3
-3:
-	.align 8
-4:
+; Disassembly of file: main.o
+; Thu Jan 12 18:39:02 2023
+; Type: ELF64
+; Syntax: NASM
+; Instruction set: 8086, x64
+
+global main
+
+extern __stack_chk_fail                                 ; near
+extern __isoc99_scanf                                   ; near
+extern __printf_chk                                     ; near
+
+
+SECTION .text                        ; section number 1, code
+
+
+SECTION .data                    ; section number 2, data
+
+
+SECTION .bss                ; section number 3, bss
+
+
+SECTION .rodata.str1.1                 ; section number 4, const
+
+LC0:                                                   ; byte
+        db 45H, 6EH, 74H, 72H, 65H, 7AH, 20H, 75H       ; 0000 _ Entrez u
+        db 6EH, 20H, 65H, 6EH, 74H, 69H, 65H, 72H       ; 0008 _ n entier
+        db 3AH, 20H, 00H                                ; 0010 _ : .
+
+LC1:                                                   ; byte
+        db 25H, 64H, 00H                                ; 0013 _ %d.
+
+
+SECTION .text.startup                  ; section number 5, code
+
+main:   ; Function begin
+        endbr64                                         ; 0000 _ F3: 0F 1E. FA
+        sub     rsp, 24                                 ; 0004 _ 48: 83. EC, 18
+        lea     rsi, [rel LC0]                         ; 0008 _ 48: 8D. 35, 00000000(rel)
+        mov     edi, 1                                  ; 000F _ BF, 00000001
+; Note: Address is not rip-relative
+; Note: Absolute memory address without relocation
+        mov     rax, qword [fs:abs 28H]                 ; 0014 _ 64 48: 8B. 04 25, 00000028
+        mov     qword [rsp+8H], rax                     ; 001D _ 48: 89. 44 24, 08
+        xor     eax, eax                                ; 0022 _ 31. C0
+        call    __printf_chk                            ; 0024 _ E8, 00000000(PLT r)
+        lea     rsi, [rsp+4H]                           ; 0029 _ 48: 8D. 74 24, 04
+        lea     rdi, [rel LC1]                         ; 002E _ 48: 8D. 3D, 00000000(rel)
+        xor     eax, eax                                ; 0035 _ 31. C0
+        call    __isoc99_scanf                          ; 0037 _ E8, 00000000(PLT r)
+        mov     eax, dword [rsp+4H]                     ; 003C _ 8B. 44 24, 04
+        and     eax, 01H                                ; 0040 _ 83. E0, 01
+        mov     rdx, qword [rsp+8H]                     ; 0043 _ 48: 8B. 54 24, 08
+; Note: Address is not rip-relative
+; Note: Absolute memory address without relocation
+        sub     rdx, qword [fs:abs 28H]                 ; 0048 _ 64 48: 2B. 14 25, 00000028
+        jnz     ?_001                                   ; 0051 _ 75, 05
+        add     rsp, 24                                 ; 0053 _ 48: 83. C4, 18
+        ret                                             ; 0057 _ C3
+; main End of function
+
+?_001:  ; Local function
+; Note: Function does not end with ret or jmp
+        call    __stack_chk_fail                        ; 0058 _ E8, 00000000(PLT r)
+
+
+SECTION .note.gnu.property            ; section number 6, const
+
+        db 04H, 00H, 00H, 00H, 10H, 00H, 00H, 00H       ; 0000 _ ........
+        db 05H, 00H, 00H, 00H, 47H, 4EH, 55H, 00H       ; 0008 _ ....GNU.
+        db 02H, 00H, 00H, 0C0H, 04H, 00H, 00H, 00H      ; 0010 _ ........
+        db 03H, 00H, 00H, 00H, 00H, 00H, 00H, 00H       ; 0018 _ ........
+
+
