@@ -1,39 +1,48 @@
-section .text
+section .bss           ;Uninitialized data
+  num resb 5
 
+section .text          ;Code Segment
+  global _start
 
-    global _start
+_start:                ;User prompt
+  mov eax, 4
+  mov ebx, 1
+  mov ecx, userMsg
+  mov edx, lenUserMsg
+  int 80h
 
-_start:
+  ;Read and store the user input
+  mov eax, 3
+  mov ebx, 2
+  mov ecx, num
+  mov edx, 5          ;5 bytes (numeric, 1 for sign) of that information
+  int 80h
 
-        ; write our string to stdout.
-        mov eax,42 ;
-        cmp eax,42 ;
-	    je print  ;
-        call    end1
+  mov al, byte[num]
+  cmp al, byte[value]
+  jne end_return_1
 
-end0:
+  ;Output the message '1337'
+  mov eax, 4
+  mov ebx, 1
+  mov ecx, number
+  mov edx, numberLen
+  int 80h
 
-	    mov	    ebx,0	  ; first syscall argument: exit code.
-        mov     eax,1     ; system call number (sys_exit).
-        int     0x80	  ; call kernel.
+  ; Exit code
+  mov eax, 1
+  mov ebx, 0
+  int 80h
 
-end1:
+end_return_1:
+  mov eax, 1
+  mov ebx, 1
+  int 80h
 
-	    mov	    ebx,1	  ; first syscall argument: exit code.
-        mov     eax,1     ; system call number (sys_exit).
-        int     0x80	  ; call kernel.
-
-print:
-
-        mov     edx,len   ; third argument: message length.
-        mov     ecx,[esp + 4]   ; second argument: pointer to message to write.
-        mov     ebx,1     ; first argument: file handle (stdout).
-        mov     eax,4     ; system call number (sys_write).
-        int     0x80	  ; call kernel.
-        call    end0
-        ret
-
-section .data
-
-msg     db      "1337",0xa
-len     equ     $ - msg
+section .data                           ;Data segment
+  userMsg db 'Please enter a number: ' ;Ask the user to enter a number
+  lenUserMsg equ $-userMsg             ;The length of the message
+  value: db '42', 2
+  valueLen: equ $-value
+  number:     db '1337', 4
+    numberLen:  equ $-number

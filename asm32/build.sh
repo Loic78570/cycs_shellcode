@@ -1,6 +1,8 @@
 #nasm -f elf32 asm01.s -o asm01.o
 #ld asm01.o -o a01
 
+#usage : build.sh (fichier asm)
+
 for arg in "$@"
 do
 
