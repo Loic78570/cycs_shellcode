@@ -1,11 +1,6 @@
-SECTION .data
+          global    _start
 
-    global main
-
-SECTION .text
-
-main:
-    mov eax, 1
-    mov ebx, 0
-
-    int     0x80
+          section   .text
+_start:   mov       eax, 1
+          mov       ebx, 0
+          int       80h
