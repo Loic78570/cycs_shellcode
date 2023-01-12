@@ -1,17 +1,13 @@
 section .data
-msg     db      '/bin/sh', 0Ah, 0h
+file db '/bin/sh',0
+file_arg db 'sh',0
+argv dq file_arg, 0
 
 section .text
 global _start
-
 _start:
-    ; 59 opcode
-    ; int execve(char *fname, char **argp, char **envp);
-    xor eax, eax        ;Zero EAX
-    mov ecx, eax        ;Zero ecx
-    mov edx, eax        ;Zero edx
-    mov ebx, msg             ;string to ebx
-    mov byte[ebx+7], al     ;append a zero onto the end of the string '/bin/sh'
-
-    add eax, 59        ;execve opcode
-    int 80h            ;interupt
+mov     eax, 11
+mov     edi, file
+mov     esi, argv
+mov     edx, 0
+syscall
