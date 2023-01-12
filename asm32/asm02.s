@@ -11,8 +11,9 @@ _start:
         mov     ebx,1     ; first argument: file handle (stdout).
         mov     eax,4     ; system call number (sys_write).
         int     0x80	  ; call kernel.
+        jmp     _end
 
-        ; and exit.
+_end:
 
 	    mov	ebx,0	      ; first syscall argument: exit code.
         mov     eax,1     ; system call number (sys_exit).
