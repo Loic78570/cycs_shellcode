@@ -1,14 +1,14 @@
           global    _start
 
           section   .text
-_start:   mov       rax, 1                  ; system call for write
-          mov       rdi, 1                  ; file handle 1 is stdout
-          mov       rsi, message            ; address of string to output
-          mov       rdx, 13                 ; number of bytes
-          syscall                           ; invoke operating system to do the write
-          mov       rax, 60                 ; system call for exit
-          xor       rdi, rdi                ; exit code 0
-          syscall                           ; invoke operating system to exit
+_start:   mov       eax, 1                  ;
+          mov       edi, 1                  ;
+          mov       esi, message            ;
+          mov       edx, 5                  ;
+          syscall                           ;
+          mov       eax, 60                 ;
+          xor       edi, edi                ;
+          syscall                           ;
 
           section   .data
-message:  db        "1337", 5      ; note the newline at the end
+message:  db        "1337", 4               ;
