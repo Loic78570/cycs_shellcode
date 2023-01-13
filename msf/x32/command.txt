@@ -1,0 +1,1 @@
+msfvenom -e x86/shikata_ga_nai --platform Linux -i 10 -f raw -a x86 -o msfasm06.bin < asm06
